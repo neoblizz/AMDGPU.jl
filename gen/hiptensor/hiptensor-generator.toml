@@ -1,0 +1,12 @@
+[general]
+library_name = "libhiptensor"
+output_file_path = "../src/tensor/libhiptensor.jl"
+export_symbol_prefixes = []
+print_using_CEnum = false
+output_ignorelist = [
+    "hiptensorStatus_t",
+    "FILE",
+]
+
+[codegen]
+use_ccall_macro = true

@@ -13,6 +13,7 @@ function versioninfo()
         _status(functional(:rocrand))     "rocRAND"          _ver(:rocrand, rocRAND.version)     _libpath(librocrand);
         _status(functional(:rocfft))      "rocFFT"           _ver(:rocfft, rocFFT.version)       _libpath(librocfft);
         _status(functional(:MIOpen))      "MIOpen"           _ver(:MIOpen, MIOpen.version)       _libpath(libMIOpen_path);
+        _status(functional(:hiptensor))   "hipTensor"        _ver(:hiptensor, hipTensor.version) _libpath(libhiptensor);
     ]
 
     PrettyTables.pretty_table(data; column_labels=[
@@ -65,6 +66,7 @@ function correctly. Available `component` values are:
 - `:rocrand`     - Queries rocRAND library availability
 - `:rocfft`      - Queries rocFFT library availability
 - `:MIOpen`      - Queries MIOpen library availability
+- `:hiptensor`   - Queries hipTensor library availability
 - `:all`         - Queries all above components
 
 This query should never throw for valid `component` values.
@@ -88,10 +90,12 @@ function functional(component::Symbol)
         return !isempty(librocfft)
     elseif component == :MIOpen
         return !isempty(libMIOpen_path)
+    elseif component == :hiptensor
+        return !isempty(libhiptensor)
     elseif component == :all
         for component in (
             :hip, :lld, :device_libs, :rocblas, :rocsolver,
-            :rocsparse, :rocrand, :rocfft, :MIOpen,
+            :rocsparse, :rocrand, :rocfft, :MIOpen, :hiptensor,
         )
             functional(component) || return false
         end

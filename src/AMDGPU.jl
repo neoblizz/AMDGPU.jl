@@ -117,6 +117,7 @@ include("sparse/rocSPARSE.jl")
 include("rand/rocRAND.jl")
 include("fft/rocFFT.jl")
 include("dnn/MIOpen.jl")
+include("tensor/hipTensor.jl")
 
 include("random.jl")
 
@@ -194,7 +195,8 @@ function __init__()
 
     hiplibs = (
         ("rocBLAS", :rocblas), ("rocSPARSE", :rocsparse), ("rocSOLVER", :rocsolver),
-        ("rocRAND", :rocrand), ("rocFFT", :rocfft), ("MIOpen", :MIOpen))
+        ("rocRAND", :rocrand), ("rocFFT", :rocfft), ("MIOpen", :MIOpen),
+        ("hipTensor", :hiptensor))
     for (name, symbol) in hiplibs
         functional(symbol) || @warn "$name is unavailable, functionality will be disabled."
     end
